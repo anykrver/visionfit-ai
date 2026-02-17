@@ -1,15 +1,15 @@
 
 import React from 'react';
-import { supabase } from '../services/supabaseClient';
 
 interface HeaderProps {
   currentView: 'shop' | 'how-it-works' | 'brands' | 'about';
   onViewChange: (view: 'shop' | 'how-it-works' | 'brands' | 'about') => void;
   user: any;
   onAuthClick: () => void;
+  onLogout: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ currentView, onViewChange, user, onAuthClick }) => {
+const Header: React.FC<HeaderProps> = ({ currentView, onViewChange, user, onAuthClick, onLogout }) => {
   const navItems = [
     { label: 'Shop', id: 'shop' },
     { label: 'How it works', id: 'how-it-works' },
@@ -17,14 +17,10 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange, user, onAuth
     { label: 'About', id: 'about' },
   ] as const;
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-  };
-
   return (
     <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-zinc-100">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        <div 
+        <div
           className="flex items-center gap-2 cursor-pointer group"
           onClick={() => onViewChange('shop')}
         >
@@ -33,17 +29,16 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange, user, onAuth
           </div>
           <span className="text-xl font-bold tracking-tight">VisionFit AI</span>
         </div>
-        
+
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => onViewChange(item.id)}
-              className={`transition-colors py-1 relative ${
-                currentView === item.id 
-                  ? 'text-black' 
+              className={`transition-colors py-1 relative ${currentView === item.id
+                  ? 'text-black'
                   : 'text-zinc-500 hover:text-black'
-              }`}
+                }`}
             >
               {item.label}
               {currentView === item.id && (
@@ -56,8 +51,8 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange, user, onAuth
         <div className="flex items-center gap-2">
           {user ? (
             <div className="flex items-center gap-4">
-              <button 
-                onClick={handleLogout}
+              <button
+                onClick={onLogout}
                 className="text-[10px] font-black uppercase tracking-widest text-zinc-400 hover:text-black transition-colors"
               >
                 Logout
@@ -67,7 +62,7 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange, user, onAuth
               </div>
             </div>
           ) : (
-            <button 
+            <button
               onClick={onAuthClick}
               className="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-zinc-800 transition-all shadow-lg shadow-black/10"
             >

@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { supabase } from '../services/supabaseClient';
+import { api } from '../services/apiClient';
 import Button from './Button';
 
 interface AuthModalProps {
@@ -22,12 +22,10 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, onSuccess }) => {
 
     try {
       if (isSignUp) {
-        const { error } = await supabase.auth.signUp({ email, password });
-        if (error) throw error;
+        await api.signUp(email, password);
         alert("Verification email sent! Please check your inbox.");
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
+        await api.signIn(email, password);
       }
       onSuccess();
       onClose();
@@ -42,7 +40,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, onSuccess }) => {
     <div className="fixed inset-0 z-[150] flex items-center justify-center px-4">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-md" onClick={onClose}></div>
       <div className="relative bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl p-10 animate-in fade-in zoom-in duration-300">
-        <button 
+        <button
           onClick={onClose}
           className="absolute top-6 right-6 p-2 hover:bg-zinc-100 rounded-full transition-colors"
         >
@@ -60,8 +58,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, onSuccess }) => {
         <form onSubmit={handleAuth} className="space-y-4">
           <div className="space-y-1">
             <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-1">Email Address</label>
-            <input 
-              type="email" 
+            <input
+              type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -71,8 +69,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, onSuccess }) => {
           </div>
           <div className="space-y-1">
             <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-1">Password</label>
-            <input 
-              type="password" 
+            <input
+              type="password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -93,7 +91,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, onSuccess }) => {
         </form>
 
         <div className="mt-8 text-center">
-          <button 
+          <button
             onClick={() => setIsSignUp(!isSignUp)}
             className="text-xs font-bold text-zinc-400 hover:text-black transition-colors uppercase tracking-widest"
           >

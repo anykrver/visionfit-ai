@@ -2,9 +2,8 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import Cropper, { Area } from 'react-easy-crop';
 import { Product, TryOnResult, TryOnRequest } from '../types';
-import { geminiService } from '../services/geminiService';
+import { api } from '../services/apiClient';
 import { getCroppedImg } from '../utils/cropImage';
-import { supabase } from '../services/supabaseClient';
 import Button from './Button';
 import TryOnProcessing from './TryOnProcessing';
 
@@ -65,15 +64,11 @@ const TryOnModal: React.FC<TryOnModalProps> = ({ product, onClose }) => {
   useEffect(() => {
     const checkUserAndAutoGenerate = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session?.user) {
-          setUser(session.user);
-          const { data: profile } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', session.user.id)
-            .single();
-          
+        const { user: sessionUser } = await api.getSession();
+        if (sessionUser) {
+          setUser(sessionUser);
+          const { profile } = await api.getProfile();
+
           if (profile) {
             const h = profile.height || '175';
             const w = profile.weight || '70';
@@ -117,7 +112,7 @@ const TryOnModal: React.FC<TryOnModalProps> = ({ product, onClose }) => {
         }
       };
 
-      const res = await geminiService.performTryOn(requestData);
+      const res = await api.performTryOn(requestData);
       setResult(res);
     } catch (error) {
       setResult({
@@ -127,14 +122,6 @@ const TryOnModal: React.FC<TryOnModalProps> = ({ product, onClose }) => {
       });
     } finally {
       setIsProcessing(false);
-    }
-  };
-
-  const handleConnectKey = async () => {
-    if (window.aistudio?.openSelectKey) {
-      await window.aistudio.openSelectKey();
-      // Proceed immediately as per race condition rules
-      handleGenerate();
     }
   };
 
@@ -170,15 +157,13 @@ const TryOnModal: React.FC<TryOnModalProps> = ({ product, onClose }) => {
   const handleGenerate = async () => {
     if (!image) return;
     handleGenerateDirectly(image, height, weight);
-    
+
     if (user && saveBodyModel) {
       try {
-        await supabase.from('profiles').upsert({
-          id: user.id,
+        await api.updateProfile({
           height,
           weight,
           body_model_url: image,
-          updated_at: new Date().toISOString()
         });
       } catch (err) {
         console.warn("Failed to update profile", err);
@@ -239,7 +224,7 @@ const TryOnModal: React.FC<TryOnModalProps> = ({ product, onClose }) => {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 py-6">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose}></div>
-      
+
       <div className="relative bg-white w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh]">
         <div className="hidden md:flex md:w-1/3 bg-zinc-50 border-r border-zinc-100 flex-col overflow-y-auto">
           <img src={product.imageUrl} alt={product.title} className="w-full aspect-[3/4] object-cover" />
@@ -251,7 +236,7 @@ const TryOnModal: React.FC<TryOnModalProps> = ({ product, onClose }) => {
         </div>
 
         <div className="flex-1 overflow-y-auto p-6 md:p-10 flex flex-col relative">
-          <button 
+          <button
             onClick={onClose}
             className="absolute top-6 right-6 p-2 hover:bg-zinc-100 rounded-full transition-colors z-50 bg-white/80"
           >
@@ -289,7 +274,7 @@ const TryOnModal: React.FC<TryOnModalProps> = ({ product, onClose }) => {
             </div>
           ) : isProcessing ? (
             <div className="flex-1 flex items-center justify-center">
-                <TryOnProcessing userImage={image} />
+              <TryOnProcessing userImage={image} />
             </div>
           ) : result?.message === 'QUOTA_EXHAUSTED' ? (
             <div className="flex-1 flex flex-col items-center justify-center space-y-8 text-center px-4">
@@ -301,16 +286,15 @@ const TryOnModal: React.FC<TryOnModalProps> = ({ product, onClose }) => {
                 <p className="text-zinc-500 text-sm max-w-sm mx-auto">
                   The shared VisionFit AI quota has been exceeded for today. To continue generating unlimited looks, connect your own paid API key.
                 </p>
-                <a 
-                  href="https://ai.google.dev/gemini-api/docs/billing" 
-                  target="_blank" 
+                <a
+                  href="https://ai.google.dev/gemini-api/docs/billing"
+                  target="_blank"
                   className="text-[10px] font-black uppercase tracking-widest text-black underline underline-offset-4 hover:text-zinc-600 block pt-2"
                 >
                   Learn about Gemini API Billing
                 </a>
               </div>
               <div className="flex flex-col gap-3 w-full max-w-xs">
-                <Button className="w-full py-5" onClick={handleConnectKey}>Connect Personal API Key</Button>
                 <Button variant="ghost" onClick={resetTryOn}>Back to Fitting Room</Button>
               </div>
             </div>
@@ -331,23 +315,23 @@ const TryOnModal: React.FC<TryOnModalProps> = ({ product, onClose }) => {
                 <h2 className="text-2xl font-bold">Look Rendered</h2>
                 <p className="text-zinc-500 text-sm">Identity-preserved and physically accurate.</p>
               </div>
-              
+
               <div className="relative group w-full max-w-sm aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border border-zinc-100 bg-zinc-100">
                 <img src={result.imageUrl} alt="Result" className="w-full h-full object-cover" />
-                
+
                 <div className="absolute top-4 left-4">
-                    <div className="bg-white/90 backdrop-blur px-3 py-1.5 rounded-full flex items-center gap-2 shadow-sm border border-white/20">
-                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                        <span className="text-[10px] font-black uppercase tracking-widest text-black">AI Neural Render</span>
-                    </div>
+                  <div className="bg-white/90 backdrop-blur px-3 py-1.5 rounded-full flex items-center gap-2 shadow-sm border border-white/20">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-black">AI Neural Render</span>
+                  </div>
                 </div>
 
                 <div className="absolute top-4 right-4 flex flex-col gap-2">
-                    <button onClick={handleShare} className="w-10 h-10 bg-white/90 backdrop-blur-md rounded-xl flex items-center justify-center text-black shadow-lg hover:bg-white transition-all border border-white/20"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg></button>
-                    <button onClick={handleDownload} className="w-10 h-10 bg-white/90 backdrop-blur-md rounded-xl flex items-center justify-center text-black shadow-lg hover:bg-white transition-all border border-white/20"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg></button>
+                  <button onClick={handleShare} className="w-10 h-10 bg-white/90 backdrop-blur-md rounded-xl flex items-center justify-center text-black shadow-lg hover:bg-white transition-all border border-white/20"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg></button>
+                  <button onClick={handleDownload} className="w-10 h-10 bg-white/90 backdrop-blur-md rounded-xl flex items-center justify-center text-black shadow-lg hover:bg-white transition-all border border-white/20"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg></button>
                 </div>
               </div>
-              
+
               <div className="flex flex-col sm:flex-row gap-3 w-full max-w-sm pt-4">
                 <Button className="flex-[2] py-4 shadow-xl shadow-black/10" onClick={() => window.open(product.imageUrl, '_blank')}>View Store</Button>
                 <Button variant="secondary" className="flex-1 py-4" onClick={resetTryOn}>Retry</Button>
@@ -361,7 +345,7 @@ const TryOnModal: React.FC<TryOnModalProps> = ({ product, onClose }) => {
               </div>
 
               <div className="space-y-6">
-                <div 
+                <div
                   onClick={() => fileInputRef.current?.click()}
                   className={`relative cursor-pointer border-2 border-dashed rounded-[2rem] p-8 flex flex-col items-center justify-center transition-all group ${image ? 'border-zinc-200 bg-zinc-50' : 'border-zinc-300 hover:border-black bg-white hover:bg-zinc-50/50'}`}
                 >
@@ -386,11 +370,11 @@ const TryOnModal: React.FC<TryOnModalProps> = ({ product, onClose }) => {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-1">Height (cm)</label>
-                    <input type="number" value={height} onChange={(e) => setHeight(e.target.value)} className="w-full px-5 py-4 bg-zinc-50 border border-zinc-200 rounded-2xl focus:ring-4 focus:ring-black/5 outline-none transition-all font-bold"/>
+                    <input type="number" value={height} onChange={(e) => setHeight(e.target.value)} className="w-full px-5 py-4 bg-zinc-50 border border-zinc-200 rounded-2xl focus:ring-4 focus:ring-black/5 outline-none transition-all font-bold" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-1">Weight (kg)</label>
-                    <input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} className="w-full px-5 py-4 bg-zinc-50 border border-zinc-200 rounded-2xl focus:ring-4 focus:ring-black/5 outline-none transition-all font-bold"/>
+                    <input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} className="w-full px-5 py-4 bg-zinc-50 border border-zinc-200 rounded-2xl focus:ring-4 focus:ring-black/5 outline-none transition-all font-bold" />
                   </div>
                 </div>
 
