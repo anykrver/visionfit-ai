@@ -45,7 +45,7 @@ Brands that have adopted virtual try-on report **40% fewer returns** and **25% h
 ### The Future
 
 As AI models become more powerful, expect real-time video try-ons, multi-garment styling, and even fabric simulation where you can "feel" the texture through haptic feedback. The fitting room of the future is already here — it's just on your phone.`,
-        coverImage: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80",
+        coverImage: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&auto=format&fit=crop&q=80",
         category: "Technology",
         author: "Styll Team",
         date: "2026-02-15",
@@ -98,7 +98,7 @@ Every prevented return eliminates an average of **2.4 kg of CO₂ emissions** fr
 ### What's Next
 
 The next frontier is **predictive sizing** — AI that tells you your exact size in any brand before you even try it on. Combined with virtual try-on visualization, this will make "wrong size" returns a thing of the past.`,
-        coverImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80",
+        coverImage: "https://images.unsplash.com/photo-1556742111-a301076d9d18?w=800&auto=format&fit=crop&q=80",
         category: "Industry",
         author: "Styll Team",
         date: "2026-02-12",
@@ -150,7 +150,7 @@ With these 15 pieces, you can create over **50 unique outfits**. The key princip
 ### Try Before You Commit
 
 With Styll, you can virtually try on every piece in this guide before purchasing. Upload your photo and see exactly how each item looks on your body — ensuring your capsule wardrobe investment pays off from day one.`,
-        coverImage: "https://images.unsplash.com/photo-1558171813-01a7b58f8b70?w=800&q=80",
+        coverImage: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&auto=format&fit=crop&q=80",
         category: "Style Guide",
         author: "Styll Team",
         date: "2026-02-10",
@@ -199,7 +199,7 @@ Gemini 2.5 Flash was chosen specifically for its balance of **speed and quality*
 ### What Makes It Different
 
 Traditional fashion AI tools use GANs (Generative Adversarial Networks) that are trained on specific clothing datasets. Gemini's foundation model approach means it can handle **any garment** — from haute couture gowns to streetwear hoodies — without retraining.`,
-        coverImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+        coverImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&auto=format&fit=crop&q=80",
         category: "Technology",
         author: "Styll Team",
         date: "2026-02-08",
@@ -253,7 +253,7 @@ If every online fashion retailer adopted AI try-on technology:
 ### The Path Forward
 
 The fashion industry is at a crossroads. Technology like Styll offers a path where style and sustainability coexist. Every virtual try-on that prevents a return is a small victory for the planet.`,
-        coverImage: "https://images.unsplash.com/photo-1532453288672-3a27e17f7571?w=800&q=80",
+        coverImage: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&auto=format&fit=crop&q=80",
         category: "Sustainability",
         author: "Styll Team",
         date: "2026-02-05",
@@ -313,7 +313,7 @@ The quality of your virtual try-on depends heavily on the quality of your input 
 ### Styll's Advantage
 
 Our Gemini-powered engine is remarkably forgiving — it can work with imperfect photos and still produce great results. But following these tips will take your virtual try-on from good to **indistinguishable from a real photo**.`,
-        coverImage: "https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=800&q=80",
+        coverImage: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&auto=format&fit=crop&q=80",
         category: "Tips & Tricks",
         author: "Styll Team",
         date: "2026-02-03",
@@ -362,7 +362,7 @@ AI shopping assistants are starting to factor in sustainability metrics. Before 
 - Lower-impact alternatives
 
 **The bottom line**: AI isn't just making shopping easier — it's making it smarter, more sustainable, and more personal. The brands that embrace these technologies will win the future of fashion retail.`,
-        coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+        coverImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&auto=format&fit=crop&q=80",
         category: "Trends",
         author: "Styll Team",
         date: "2026-01-28",
@@ -424,7 +424,7 @@ For a brand doing $10M in annual online revenue:
 ### Getting Started
 
 Styll offers a free trial with 100 renders per month. Contact our partnerships team to explore enterprise plans with unlimited renders, analytics dashboards, and dedicated support.`,
-        coverImage: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
+        coverImage: "https://images.unsplash.com/photo-1556742031-c6961e8560b0?w=800&auto=format&fit=crop&q=80",
         category: "Business",
         author: "Styll Team",
         date: "2026-01-22",

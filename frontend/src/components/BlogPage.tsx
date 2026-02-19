@@ -67,6 +67,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ onPostClick }) => {
                                 src={featuredPost.coverImage}
                                 alt={featuredPost.title}
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
+                                onError={(e) => { const t = e.currentTarget; t.style.display = 'none'; t.parentElement!.classList.add('bg-gradient-to-br', 'from-zinc-800', 'to-zinc-900', 'flex', 'items-center', 'justify-center'); t.parentElement!.innerHTML = '<svg class="w-12 h-12 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>'; }}
                             />
                         </div>
                         <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center text-left">
@@ -111,8 +112,8 @@ const BlogPage: React.FC<BlogPageProps> = ({ onPostClick }) => {
                             key={cat}
                             onClick={() => setActiveCategory(cat)}
                             className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 flex-shrink-0 ${activeCategory === cat
-                                    ? 'bg-black text-white shadow-lg shadow-black/10'
-                                    : 'bg-zinc-100 text-zinc-500 hover:bg-zinc-200 hover:text-zinc-700'
+                                ? 'bg-black text-white shadow-lg shadow-black/10'
+                                : 'bg-zinc-100 text-zinc-500 hover:bg-zinc-200 hover:text-zinc-700'
                                 }`}
                         >
                             {cat}
@@ -188,6 +189,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, onClick, formatDate }) => (
                 alt={post.title}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
+                onError={(e) => { const t = e.currentTarget; t.style.display = 'none'; t.parentElement!.classList.add('bg-gradient-to-br', 'from-zinc-100', 'to-zinc-200', 'flex', 'items-center', 'justify-center'); t.parentElement!.innerHTML = '<svg class="w-10 h-10 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>'; }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
