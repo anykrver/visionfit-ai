@@ -1,0 +1,11 @@
+{
+    "name": "visionfit-api",
+    "private": true,
+    "type": "module",
+    "dependencies": {
+        "express": "^4.21.0",
+        "cors": "^2.8.5",
+        "@google/genai": "^1.41.0",
+        "@supabase/supabase-js": "2.45.4"
+    }
+}
