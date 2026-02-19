@@ -8,12 +8,14 @@ import SearchBar from './components/SearchBar';
 import HowItWorks from './components/HowItWorks';
 import ForBrands from './components/ForBrands';
 import About from './components/About';
+import BlogPage from './components/BlogPage';
+import BlogPostView from './components/BlogPostView';
 import AuthModal from './components/AuthModal';
 import { Product } from './types';
 import { MOCK_PRODUCTS } from './constants';
 import { api } from './services/apiClient';
 
-type View = 'shop' | 'how-it-works' | 'brands' | 'about';
+type View = 'shop' | 'how-it-works' | 'brands' | 'about' | 'blog' | 'blog-post';
 
 const App: React.FC = () => {
     const [currentView, setCurrentView] = useState<View>('shop');
@@ -23,6 +25,7 @@ const App: React.FC = () => {
     const [isLoadingProducts, setIsLoadingProducts] = useState(true);
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
     const [user, setUser] = useState<any>(null);
+    const [blogSlug, setBlogSlug] = useState<string>('');
 
     // Check session on mount
     useEffect(() => {
@@ -95,6 +98,10 @@ const App: React.FC = () => {
                 return <ForBrands />;
             case 'about':
                 return <About />;
+            case 'blog':
+                return <BlogPage onPostClick={(slug) => { setBlogSlug(slug); setCurrentView('blog-post'); }} />;
+            case 'blog-post':
+                return <BlogPostView slug={blogSlug} onBack={() => setCurrentView('blog')} onPostClick={(slug) => { setBlogSlug(slug); setCurrentView('blog-post'); }} />;
             default:
                 return (
                     <>
@@ -211,6 +218,7 @@ const App: React.FC = () => {
                                 <button onClick={() => setCurrentView('how-it-works')} className="block hover:text-black transition-colors">How it works</button>
                                 <button onClick={() => setCurrentView('brands')} className="block hover:text-black transition-colors">For Brands</button>
                                 <button onClick={() => setCurrentView('about')} className="block hover:text-black transition-colors">About Us</button>
+                                <button onClick={() => setCurrentView('blog')} className="block hover:text-black transition-colors">Blog</button>
                             </div>
                         </div>
                     </div>

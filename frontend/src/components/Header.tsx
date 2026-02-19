@@ -2,8 +2,8 @@
 import React from 'react';
 
 interface HeaderProps {
-  currentView: 'shop' | 'how-it-works' | 'brands' | 'about';
-  onViewChange: (view: 'shop' | 'how-it-works' | 'brands' | 'about') => void;
+  currentView: 'shop' | 'how-it-works' | 'brands' | 'about' | 'blog' | 'blog-post';
+  onViewChange: (view: 'shop' | 'how-it-works' | 'brands' | 'about' | 'blog' | 'blog-post') => void;
   user: any;
   onAuthClick: () => void;
   onLogout: () => void;
@@ -15,6 +15,7 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange, user, onAuth
     { label: 'How it works', id: 'how-it-works' },
     { label: 'For Brands', id: 'brands' },
     { label: 'About', id: 'about' },
+    { label: 'Blog', id: 'blog' },
   ] as const;
 
   return (
@@ -31,21 +32,24 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange, user, onAuth
         </div>
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => onViewChange(item.id)}
-              className={`transition-colors py-1 relative ${currentView === item.id
+          {navItems.map((item) => {
+            const isActive = currentView === item.id || (item.id === 'blog' && currentView === 'blog-post');
+            return (
+              <button
+                key={item.id}
+                onClick={() => onViewChange(item.id)}
+                className={`transition-colors py-1 relative ${isActive
                   ? 'text-black'
                   : 'text-zinc-500 hover:text-black'
-                }`}
-            >
-              {item.label}
-              {currentView === item.id && (
-                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-black rounded-full animate-in fade-in slide-in-from-bottom-1 duration-300"></span>
-              )}
-            </button>
-          ))}
+                  }`}
+              >
+                {item.label}
+                {isActive && (
+                  <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-black rounded-full animate-in fade-in slide-in-from-bottom-1 duration-300"></span>
+                )}
+              </button>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-2">
