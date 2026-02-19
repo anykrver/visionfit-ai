@@ -1,6 +1,15 @@
 -- VisionFit AI Database Schema
 -- Run this in the Supabase SQL Editor to create all required tables.
 
+-- Merchants table (must be created before products due to FK reference)
+CREATE TABLE IF NOT EXISTS merchants (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  store_name TEXT NOT NULL,
+  domain TEXT NOT NULL UNIQUE,
+  api_key_hash TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
 -- Products table
 CREATE TABLE IF NOT EXISTS products (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -12,15 +21,6 @@ CREATE TABLE IF NOT EXISTS products (
   category TEXT NOT NULL DEFAULT '',
   tags TEXT[] DEFAULT '{}',
   metadata JSONB DEFAULT '{}',
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Merchants table
-CREATE TABLE IF NOT EXISTS merchants (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  store_name TEXT NOT NULL,
-  domain TEXT NOT NULL UNIQUE,
-  api_key_hash TEXT NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
