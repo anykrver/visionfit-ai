@@ -45,7 +45,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ onPostClick }) => {
                             INSIGHTS & STYLE INTEL
                         </div>
                         <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-black leading-[0.92] mb-6">
-                            The VisionFit<br />
+                            The Styll<br />
                             <span className="text-zinc-400 italic font-serif font-normal">Journal</span>
                         </h1>
                         <p className="text-lg text-zinc-500 max-w-2xl font-medium leading-relaxed">

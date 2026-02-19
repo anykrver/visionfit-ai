@@ -119,7 +119,7 @@ const App: React.FC = () => {
                                     <span className="text-zinc-400 italic font-serif font-normal">Visualized</span> on You.
                                 </h1>
                                 <p className="text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto mb-14 font-medium leading-relaxed">
-                                    VisionFit AI lets you try on clothes from any store instantly. Just paste an image link or browse our curated collections.
+                                    Styll lets you try on clothes from any store instantly. Just paste an image link or browse our curated collections.
                                 </p>
 
                                 <SearchBar onSearch={setSearchQuery} onImportUrl={handleImportUrl} />
@@ -154,7 +154,7 @@ const App: React.FC = () => {
                             <div className="max-w-7xl mx-auto px-4">
                                 <div className="text-center mb-20 space-y-4">
                                     <h2 className="text-4xl font-black tracking-tight">Engineered for Precision</h2>
-                                    <p className="text-zinc-500 font-medium">How VisionFit AI achieves studio-quality virtual try-ons.</p>
+                                    <p className="text-zinc-500 font-medium">How Styll achieves studio-quality virtual try-ons.</p>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
                                     <div className="space-y-6 text-center">
@@ -205,9 +205,9 @@ const App: React.FC = () => {
                     <div className="space-y-8 max-w-sm">
                         <div className="flex items-center gap-3 cursor-pointer" onClick={() => setCurrentView('shop')}>
                             <div className="w-12 h-12 bg-black rounded-2xl flex items-center justify-center shadow-2xl">
-                                <span className="text-white font-bold text-3xl italic">V</span>
+                                <span className="text-white font-bold text-3xl italic">S</span>
                             </div>
-                            <span className="text-3xl font-black tracking-tighter">VisionFit AI</span>
+                            <span className="text-3xl font-black tracking-tighter">Styll</span>
                         </div>
                         <p className="text-base text-zinc-500 font-medium leading-relaxed">Identity-preserving AI rendering synchronized via Supabase Cloud.</p>
                     </div>
@@ -224,7 +224,7 @@ const App: React.FC = () => {
                     </div>
                 </div>
                 <div className="max-w-7xl mx-auto mt-24 pt-10 border-t border-zinc-100 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] text-zinc-400 uppercase tracking-[0.3em] font-black">
-                    <p>&copy; 2024 VisionFit AI Platform. All rights reserved.</p>
+                    <p>&copy; 2024 Styll Platform. All rights reserved.</p>
                     <p className="flex items-center gap-3">
                         Core: Gemini 2.5 Flash
                         <span className="w-2 h-2 bg-green-500 rounded-full shadow-[0_0_8px_rgba(34,197,94,0.5)]"></span>

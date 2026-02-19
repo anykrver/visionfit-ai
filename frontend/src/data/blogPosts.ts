@@ -28,11 +28,11 @@ At its core, virtual try-on uses a combination of **computer vision**, **generat
 
 1. **Body Detection** — AI identifies your body shape, pose, and proportions from a selfie or uploaded photo.
 2. **Garment Mapping** — The selected clothing item is analyzed for its shape, texture, and draping characteristics.
-3. **Neural Rendering** — A generative model (like the one powering VisionFit AI) composites the garment onto your body, preserving your identity, background, and lighting.
+3. **Neural Rendering** — A generative model (like the one powering Styll) composites the garment onto your body, preserving your identity, background, and lighting.
 
 ### Why Traditional "Overlay" Methods Fall Short
 
-Older virtual try-on tools simply stretched a 2D image of the garment over a silhouette. The results looked cartoonish and unreliable. Modern AI-powered solutions like VisionFit AI use **identity-preserving neural rendering**, which means:
+Older virtual try-on tools simply stretched a 2D image of the garment over a silhouette. The results looked cartoonish and unreliable. Modern AI-powered solutions like Styll use **identity-preserving neural rendering**, which means:
 
 - Your face, skin tone, and hair remain untouched
 - The garment respects the physics of fabric (how silk flows vs. how denim sits)
@@ -47,7 +47,7 @@ Brands that have adopted virtual try-on report **40% fewer returns** and **25% h
 As AI models become more powerful, expect real-time video try-ons, multi-garment styling, and even fabric simulation where you can "feel" the texture through haptic feedback. The fitting room of the future is already here — it's just on your phone.`,
         coverImage: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80",
         category: "Technology",
-        author: "VisionFit Team",
+        author: "Styll Team",
         date: "2026-02-15",
         readTime: "5 min read",
         tags: ["virtual try-on", "AI", "e-commerce", "fashion technology"]
@@ -74,7 +74,7 @@ Notice that **80% of returns are fit-and-appearance related** — exactly the pr
 
 ### AI to the Rescue
 
-Virtual try-on platforms like VisionFit AI address the root cause by giving shoppers a **realistic preview** of how a garment will look on their specific body. Unlike generic size charts, AI fitting considers:
+Virtual try-on platforms like Styll address the root cause by giving shoppers a **realistic preview** of how a garment will look on their specific body. Unlike generic size charts, AI fitting considers:
 
 - Your actual body proportions (height, weight, build)
 - The specific cut and fabric of each garment
@@ -82,7 +82,7 @@ Virtual try-on platforms like VisionFit AI address the root cause by giving shop
 
 ### Real-World Results
 
-Brands integrating VisionFit AI's try-on technology have seen:
+Brands integrating Styll's try-on technology have seen:
 
 | Metric | Before AI Try-On | After AI Try-On |
 |--------|-----------------|-----------------|
@@ -100,7 +100,7 @@ Every prevented return eliminates an average of **2.4 kg of CO₂ emissions** fr
 The next frontier is **predictive sizing** — AI that tells you your exact size in any brand before you even try it on. Combined with virtual try-on visualization, this will make "wrong size" returns a thing of the past.`,
         coverImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80",
         category: "Industry",
-        author: "VisionFit Team",
+        author: "Styll Team",
         date: "2026-02-12",
         readTime: "6 min read",
         tags: ["returns", "sustainability", "AI fashion", "e-commerce"]
@@ -149,10 +149,10 @@ With these 15 pieces, you can create over **50 unique outfits**. The key princip
 
 ### Try Before You Commit
 
-With VisionFit AI, you can virtually try on every piece in this guide before purchasing. Upload your photo and see exactly how each item looks on your body — ensuring your capsule wardrobe investment pays off from day one.`,
+With Styll, you can virtually try on every piece in this guide before purchasing. Upload your photo and see exactly how each item looks on your body — ensuring your capsule wardrobe investment pays off from day one.`,
         coverImage: "https://images.unsplash.com/photo-1558171813-01a7b58f8b70?w=800&q=80",
         category: "Style Guide",
-        author: "VisionFit Team",
+        author: "Styll Team",
         date: "2026-02-10",
         readTime: "7 min read",
         tags: ["capsule wardrobe", "minimalism", "fashion guide", "style tips"]
@@ -161,10 +161,10 @@ With VisionFit AI, you can virtually try on every piece in this guide before pur
         id: "4",
         slug: "gemini-ai-fashion-rendering",
         title: "Inside the Tech: How Gemini 2.5 Flash Powers Photorealistic Fashion Rendering",
-        excerpt: "A deep dive into the AI architecture behind VisionFit's virtual try-on engine. Learn how Gemini 2.5 Flash achieves studio-quality rendering in seconds.",
+        excerpt: "A deep dive into the AI architecture behind Styll's virtual try-on engine. Learn how Gemini 2.5 Flash achieves studio-quality rendering in seconds.",
         content: `## The Engine Behind the Magic
 
-VisionFit AI is powered by **Google's Gemini 2.5 Flash**, a multimodal AI model capable of understanding and generating images with remarkable fidelity. But how does it achieve photorealistic virtual try-ons? Let's break it down.
+Styll is powered by **Google's Gemini 2.5 Flash**, a multimodal AI model capable of understanding and generating images with remarkable fidelity. But how does it achieve photorealistic virtual try-ons? Let's break it down.
 
 ### Multimodal Understanding
 
@@ -178,7 +178,7 @@ This multimodal capability is what allows it to intelligently composite a garmen
 
 ### The Rendering Pipeline
 
-When you click "Try On" in VisionFit AI, here's what happens behind the scenes:
+When you click "Try On" in Styll, here's what happens behind the scenes:
 
 1. **Identity Encoding** — Your facial features are locked in. The AI creates an internal representation of your identity that cannot be altered during rendering.
 2. **Pose Estimation** — Your body pose is mapped in 3D space, including arm positions, torso angle, and stance.
@@ -188,7 +188,7 @@ When you click "Try On" in VisionFit AI, here's what happens behind the scenes:
 
 ### Why Identity Preservation Matters
 
-Many AI image generators alter your appearance — changing your skin tone, facial features, or body shape. VisionFit's system prompt architecture ensures **100% identity preservation** through carefully engineered constraints that tell the AI:
+Many AI image generators alter your appearance — changing your skin tone, facial features, or body shape. Styll's system prompt architecture ensures **100% identity preservation** through carefully engineered constraints that tell the AI:
 
 > "Keep the person's face, eyes, hair, skin tone, and features identical to the original photo."
 
@@ -201,7 +201,7 @@ Gemini 2.5 Flash was chosen specifically for its balance of **speed and quality*
 Traditional fashion AI tools use GANs (Generative Adversarial Networks) that are trained on specific clothing datasets. Gemini's foundation model approach means it can handle **any garment** — from haute couture gowns to streetwear hoodies — without retraining.`,
         coverImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
         category: "Technology",
-        author: "VisionFit Team",
+        author: "Styll Team",
         date: "2026-02-08",
         readTime: "8 min read",
         tags: ["Gemini AI", "deep learning", "fashion tech", "neural rendering"]
@@ -227,7 +227,7 @@ Online fashion returns have a devastating environmental impact:
 
 AI-powered tools attack the problem at its source — **preventing bad purchases in the first place**:
 
-#### 1. Virtual Try-On (VisionFit AI)
+#### 1. Virtual Try-On (Styll)
 By showing customers exactly how a garment looks on their body, virtual try-on eliminates the "it looked different" returns. Our data shows a **40% reduction in returns** among users.
 
 #### 2. Predictive Sizing
@@ -252,10 +252,10 @@ If every online fashion retailer adopted AI try-on technology:
 
 ### The Path Forward
 
-The fashion industry is at a crossroads. Technology like VisionFit AI offers a path where style and sustainability coexist. Every virtual try-on that prevents a return is a small victory for the planet.`,
+The fashion industry is at a crossroads. Technology like Styll offers a path where style and sustainability coexist. Every virtual try-on that prevents a return is a small victory for the planet.`,
         coverImage: "https://images.unsplash.com/photo-1532453288672-3a27e17f7571?w=800&q=80",
         category: "Sustainability",
-        author: "VisionFit Team",
+        author: "Styll Team",
         date: "2026-02-05",
         readTime: "6 min read",
         tags: ["sustainability", "fast fashion", "environment", "AI fashion"]
@@ -264,7 +264,7 @@ The fashion industry is at a crossroads. Technology like VisionFit AI offers a p
         id: "6",
         slug: "how-to-take-perfect-photo-virtual-tryon",
         title: "How to Take the Perfect Photo for AI Virtual Try-On: A Complete Guide",
-        excerpt: "Get the best results from VisionFit AI with these simple photography tips. Learn about lighting, poses, and angles that produce the most realistic virtual try-ons.",
+        excerpt: "Get the best results from Styll with these simple photography tips. Learn about lighting, poses, and angles that produce the most realistic virtual try-ons.",
         content: `## Getting the Best Results from Virtual Try-On
 
 The quality of your virtual try-on depends heavily on the quality of your input photo. Here's our definitive guide to taking the perfect photo for AI-powered virtual fitting.
@@ -310,12 +310,12 @@ The quality of your virtual try-on depends heavily on the quality of your input 
 - **Resolution**: Higher resolution = better results. Use your phone's main camera, not the selfie camera
 - **Multiple angles**: Take a front-facing and a slight-angle photo for options
 
-### VisionFit AI's Advantage
+### Styll's Advantage
 
 Our Gemini-powered engine is remarkably forgiving — it can work with imperfect photos and still produce great results. But following these tips will take your virtual try-on from good to **indistinguishable from a real photo**.`,
         coverImage: "https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=800&q=80",
         category: "Tips & Tricks",
-        author: "VisionFit Team",
+        author: "Styll Team",
         date: "2026-02-03",
         readTime: "5 min read",
         tags: ["photography tips", "virtual try-on", "how-to", "best practices"]
@@ -331,7 +331,7 @@ Our Gemini-powered engine is remarkably forgiving — it can work with imperfect
 
 ### 1. Photorealistic Virtual Try-On
 
-The most impactful shift is happening right now. AI virtual try-on has matured from gimmicky overlays to **photorealistic rendering** that's indistinguishable from actual photos. Services like VisionFit AI use cutting-edge models like Gemini 2.5 to show you exactly how a garment looks on your body.
+The most impactful shift is happening right now. AI virtual try-on has matured from gimmicky overlays to **photorealistic rendering** that's indistinguishable from actual photos. Services like Styll use cutting-edge models like Gemini 2.5 to show you exactly how a garment looks on your body.
 
 **Impact**: 40% fewer returns, 25% higher conversion rates, and happier customers.
 
@@ -364,7 +364,7 @@ AI shopping assistants are starting to factor in sustainability metrics. Before 
 **The bottom line**: AI isn't just making shopping easier — it's making it smarter, more sustainable, and more personal. The brands that embrace these technologies will win the future of fashion retail.`,
         coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
         category: "Trends",
-        author: "VisionFit Team",
+        author: "Styll Team",
         date: "2026-01-28",
         readTime: "6 min read",
         tags: ["future of shopping", "AI trends", "fashion tech", "predictions"]
@@ -380,7 +380,7 @@ The data is clear: virtual try-on isn't a nice-to-have anymore — it's a **comp
 
 ### The Business Case
 
-| Metric | Industry Average | With VisionFit Integration |
+| Metric | Industry Average | With Styll Integration |
 |--------|-----------------|--------------------------|
 | Product Page Conversion | 2.1% | 2.8% (+33%) |
 | Return Rate | 32% | 19% (-40%) |
@@ -389,7 +389,7 @@ The data is clear: virtual try-on isn't a nice-to-have anymore — it's a **comp
 
 ### How Integration Works
 
-VisionFit AI offers a simple **REST API** that any e-commerce platform can integrate:
+Styll offers a simple **REST API** that any e-commerce platform can integrate:
 
 1. **Product Feed Sync** — Upload your product catalog (images, descriptions, sizing data)
 2. **Widget Embed** — Add a "Try On" button to your product pages with a single script tag
@@ -398,7 +398,7 @@ VisionFit AI offers a simple **REST API** that any e-commerce platform can integ
 ### Implementation Options
 
 #### Option A: Widget (5 minutes)
-Add a single line of code to your product pages. VisionFit handles the entire UX — photo upload, rendering, and display.
+Add a single line of code to your product pages. Styll handles the entire UX — photo upload, rendering, and display.
 
 #### Option B: API Integration (1-2 days)
 Use our RESTful API for full control over the user experience. Send user photos and garment images, receive rendered results.
@@ -423,10 +423,10 @@ For a brand doing $10M in annual online revenue:
 
 ### Getting Started
 
-VisionFit AI offers a free trial with 100 renders per month. Contact our partnerships team to explore enterprise plans with unlimited renders, analytics dashboards, and dedicated support.`,
+Styll offers a free trial with 100 renders per month. Contact our partnerships team to explore enterprise plans with unlimited renders, analytics dashboards, and dedicated support.`,
         coverImage: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
         category: "Business",
-        author: "VisionFit Team",
+        author: "Styll Team",
         date: "2026-01-22",
         readTime: "7 min read",
         tags: ["brand integration", "API", "e-commerce", "business strategy"]

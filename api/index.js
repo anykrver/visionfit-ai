@@ -47,7 +47,7 @@ async function performTryOn(request) {
 
     const ai = new GoogleGenAI({ apiKey });
 
-    const systemInstruction = `You are an elite virtual try-on AI (VisionFit AI). Your specialty is rendering a person from a portrait (Image 1) wearing a specific garment from a reference (Image 2) with absolute realism.
+    const systemInstruction = `You are an elite virtual try-on AI (Styll). Your specialty is rendering a person from a portrait (Image 1) wearing a specific garment from a reference (Image 2) with absolute realism.
 
 CRITICAL CONSTRAINTS:
 1. IDENTITY PRESERVATION: Keep the person's face, eyes, hair, skin tone, and features 100% identical to Image 1.

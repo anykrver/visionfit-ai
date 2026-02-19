@@ -5,22 +5,22 @@ const API_BASE = '/api';
 
 // Helper to get stored auth token
 const getToken = (): string | null => {
-    return localStorage.getItem('visionfit_token');
+    return localStorage.getItem('Styll_token');
 };
 
 const setToken = (token: string | null) => {
     if (token) {
-        localStorage.setItem('visionfit_token', token);
+        localStorage.setItem('Styll_token', token);
     } else {
-        localStorage.removeItem('visionfit_token');
+        localStorage.removeItem('Styll_token');
     }
 };
 
 const setRefreshToken = (token: string | null) => {
     if (token) {
-        localStorage.setItem('visionfit_refresh_token', token);
+        localStorage.setItem('Styll_refresh_token', token);
     } else {
-        localStorage.removeItem('visionfit_refresh_token');
+        localStorage.removeItem('Styll_refresh_token');
     }
 };
 

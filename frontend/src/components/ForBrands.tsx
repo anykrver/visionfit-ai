@@ -48,7 +48,7 @@ const ForBrands: React.FC = () => {
 
   const testimonials = [
     {
-      quote: "VisionFit cut our return rate by 38% in the first quarter. The ROI was visible within weeks.",
+      quote: "Styll cut our return rate by 38% in the first quarter. The ROI was visible within weeks.",
       name: "Sarah Chen",
       role: "Head of E-Commerce, Luxe Collective",
       avatar: "SC"
@@ -61,9 +61,9 @@ const ForBrands: React.FC = () => {
     }
   ];
 
-  const codeSnippet = `// VisionFit API — Try-On Request
+  const codeSnippet = `// Styll API — Try-On Request
 const response = await fetch(
-  'https://api.visionfit.ai/v1/tryon',
+  'https://api.Styll.ai/v1/tryon',
   {
     method: 'POST',
     headers: {
@@ -250,7 +250,7 @@ const { result_image } = await response.json();`;
               Let's Build Together
             </h2>
             <p className="text-zinc-400 font-medium mb-10 max-w-lg mx-auto leading-relaxed">
-              Join hundreds of brands using VisionFit AI to transform their online shopping experience. Start with 100 free renders per month.
+              Join hundreds of brands using Styll to transform their online shopping experience. Start with 100 free renders per month.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <button className="px-8 py-4 bg-white text-black rounded-full text-xs font-black uppercase tracking-widest hover:bg-zinc-200 transition-all shadow-2xl hover:shadow-white/20 hover:scale-105 transform duration-300">
@@ -279,7 +279,7 @@ function colorCode(line: string): React.ReactNode {
   let parts = line;
   const highlighted = parts
     .replace(/(const|await|fetch|method|headers|body|JSON\.stringify)/g, '<kw>$1</kw>')
-    .replace(/('Bearer vf_sk_\.\.\.'|'Authorization'|'Content-Type'|'application\/json'|'POST'|'https:\/\/api\.visionfit\.ai\/v1\/tryon')/g, '<str>$1</str>');
+    .replace(/('Bearer vf_sk_\.\.\.'|'Authorization'|'Content-Type'|'application\/json'|'POST'|'https:\/\/api\.Styll\.ai\/v1\/tryon')/g, '<str>$1</str>');
 
   if (highlighted === parts) {
     return <span>{line}</span>;

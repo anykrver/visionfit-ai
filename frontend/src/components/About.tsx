@@ -46,7 +46,7 @@ const About: React.FC = () => {
   ];
 
   const milestones = [
-    { year: "2024", title: "Founded", desc: "VisionFit AI born from the idea that online shopping needs a fitting room." },
+    { year: "2024", title: "Founded", desc: "Styll born from the idea that online shopping needs a fitting room." },
     { year: "2024", title: "Seed Round", desc: "Raised initial funding to build the core identity-preserving AI engine." },
     { year: "2025", title: "Gemini Integration", desc: "Partnered with Google to leverage Gemini 2.5 Flash for studio-quality rendering." },
     { year: "2025", title: "100+ Brands", desc: "Onboarded over 100 fashion brands across North America and Europe." },
@@ -57,7 +57,7 @@ const About: React.FC = () => {
     { name: "Rahul Verma", role: "Founder & CEO", avatar: "RV", desc: "AI researcher turned fashion-tech entrepreneur. Believes shopping should be expressive, not stressful." },
     { name: "Priya Sharma", role: "Head of AI", avatar: "PS", desc: "Former Google DeepMind. Pioneered identity-preserving neural rendering techniques." },
     { name: "Alex Chen", role: "Head of Product", avatar: "AC", desc: "10+ years in e-commerce. Previously led product at a major fashion marketplace." },
-    { name: "Jordan Okafor", role: "Head of Partnerships", avatar: "JO", desc: "Connecting VisionFit AI with the world's leading fashion brands and retailers." },
+    { name: "Jordan Okafor", role: "Head of Partnerships", avatar: "JO", desc: "Connecting Styll with the world's leading fashion brands and retailers." },
   ];
 
   return (
@@ -74,7 +74,7 @@ const About: React.FC = () => {
                 Confidence<br />is <span className="text-zinc-400 italic font-serif font-normal">Personal</span>.
               </h1>
               <p className="text-lg text-zinc-500 font-medium leading-relaxed mb-8 max-w-lg">
-                We started VisionFit AI with a simple observation: the digital shopping experience hasn't changed in 20 years. We're changing that by bringing the fitting room to your screen.
+                We started Styll with a simple observation: the digital shopping experience hasn't changed in 20 years. We're changing that by bringing the fitting room to your screen.
               </p>
               <div className="flex gap-8">
                 <div>

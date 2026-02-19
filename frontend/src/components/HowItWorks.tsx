@@ -9,7 +9,7 @@ const HowItWorks: React.FC = () => {
       number: "01",
       title: "Select Your Outfit",
       desc: "Browse our curated collection or paste a URL from any online store. Our engine works with virtually any garment — dresses, suits, streetwear, or haute couture.",
-      detail: "Simply copy a garment image URL from any retailer, or browse the VisionFit curated catalogue. Our AI engine understands garment structure from any angle.",
+      detail: "Simply copy a garment image URL from any retailer, or browse the Styll curated catalogue. Our AI engine understands garment structure from any angle.",
       icon: (
         <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -221,7 +221,7 @@ const HowItWorks: React.FC = () => {
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"></div>
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-[120px] pointer-events-none"></div>
           <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 opacity-[0.03] select-none pointer-events-none">
-            <span className="text-[14rem] font-black tracking-tighter text-white whitespace-nowrap">VISIONFIT</span>
+            <span className="text-[14rem] font-black tracking-tighter text-white whitespace-nowrap">Styll</span>
           </div>
         </div>
       </section>

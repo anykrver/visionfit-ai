@@ -49,7 +49,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, onSuccess }) => {
 
         <div className="text-center space-y-3 mb-10">
           <div className="w-16 h-16 bg-black rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl">
-            <span className="text-white font-bold text-3xl italic">V</span>
+            <span className="text-white font-bold text-3xl italic">S</span>
           </div>
           <h2 className="text-3xl font-black tracking-tight">{isSignUp ? "Create Account" : "Welcome Back"}</h2>
           <p className="text-zinc-500 font-medium text-sm">Access your Digital Body Model and try-on history.</p>
@@ -95,7 +95,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, onSuccess }) => {
             onClick={() => setIsSignUp(!isSignUp)}
             className="text-xs font-bold text-zinc-400 hover:text-black transition-colors uppercase tracking-widest"
           >
-            {isSignUp ? "Already have an account? Sign In" : "New to VisionFit? Create Account"}
+            {isSignUp ? "Already have an account? Sign In" : "New to Styll? Create Account"}
           </button>
         </div>
       </div>

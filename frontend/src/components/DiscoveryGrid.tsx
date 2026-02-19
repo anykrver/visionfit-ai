@@ -19,7 +19,7 @@ const DiscoveryGrid: React.FC<DiscoveryGridProps> = ({
 
   // Load recently viewed from localStorage on mount
   useEffect(() => {
-    const saved = localStorage.getItem('visionfit_recently_viewed');
+    const saved = localStorage.getItem('Styll_recently_viewed');
     if (saved) {
       try {
         setRecentlyViewed(JSON.parse(saved));
@@ -34,7 +34,7 @@ const DiscoveryGrid: React.FC<DiscoveryGridProps> = ({
     setRecentlyViewed((prev) => {
       const filtered = prev.filter(p => p.id !== product.id);
       const updated = [product, ...filtered].slice(0, 5);
-      localStorage.setItem('visionfit_recently_viewed', JSON.stringify(updated));
+      localStorage.setItem('Styll_recently_viewed', JSON.stringify(updated));
       return updated;
     });
   };
@@ -75,7 +75,7 @@ const DiscoveryGrid: React.FC<DiscoveryGridProps> = ({
             <h3 className="text-xs font-black uppercase tracking-[0.3em] text-zinc-400">Recently Viewed</h3>
             <button 
               onClick={() => {
-                localStorage.removeItem('visionfit_recently_viewed');
+                localStorage.removeItem('Styll_recently_viewed');
                 setRecentlyViewed([]);
               }}
               className="text-[10px] font-bold text-zinc-300 hover:text-black transition-colors uppercase tracking-widest"

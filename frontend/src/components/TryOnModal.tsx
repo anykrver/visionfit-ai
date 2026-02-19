@@ -175,7 +175,7 @@ const TryOnModal: React.FC<TryOnModalProps> = ({ product, onClose }) => {
     if (!result?.imageUrl) return;
     const link = document.createElement('a');
     link.href = result.imageUrl;
-    link.download = `visionfit-${product.title.toLowerCase().replace(/\s+/g, '-')}.png`;
+    link.download = `Styll-${product.title.toLowerCase().replace(/\s+/g, '-')}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -188,19 +188,19 @@ const TryOnModal: React.FC<TryOnModalProps> = ({ product, onClose }) => {
         if (result.imageUrl.startsWith('data:')) {
           const res = await fetch(result.imageUrl);
           const blob = await res.blob();
-          const file = new File([blob], 'visionfit-tryon.png', { type: 'image/png' });
+          const file = new File([blob], 'Styll-tryon.png', { type: 'image/png' });
           if (navigator.canShare && navigator.canShare({ files: [file] })) {
             await navigator.share({
               files: [file],
-              title: 'My VisionFit AI Look',
-              text: `Check out this ${product.title} I just tried on with VisionFit AI!`,
+              title: 'My Styll Look',
+              text: `Check out this ${product.title} I just tried on with Styll!`,
             });
             return;
           }
         }
         await navigator.share({
-          title: 'VisionFit AI Try-On',
-          text: `I just tried on the ${product.title} with VisionFit AI!`,
+          title: 'Styll Try-On',
+          text: `I just tried on the ${product.title} with Styll!`,
           url: window.location.href
         });
       } else {
@@ -284,7 +284,7 @@ const TryOnModal: React.FC<TryOnModalProps> = ({ product, onClose }) => {
               <div className="space-y-3">
                 <h3 className="text-2xl font-black text-black">Daily Limit Reached</h3>
                 <p className="text-zinc-500 text-sm max-w-sm mx-auto">
-                  The shared VisionFit AI quota has been exceeded for today. To continue generating unlimited looks, connect your own paid API key.
+                  The shared Styll quota has been exceeded for today. To continue generating unlimited looks, connect your own paid API key.
                 </p>
                 <a
                   href="https://ai.google.dev/gemini-api/docs/billing"

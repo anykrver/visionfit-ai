@@ -208,7 +208,7 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ slug, onBack, onPostClick }
                     </p>
                     <div className="flex items-center gap-4 pb-8 border-b border-zinc-100">
                         <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center">
-                            <span className="text-white font-bold text-lg italic">V</span>
+                            <span className="text-white font-bold text-lg italic">S</span>
                         </div>
                         <div>
                             <p className="font-bold text-sm">{post.author}</p>

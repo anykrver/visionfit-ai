@@ -26,9 +26,9 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange, user, onAuth
           onClick={() => onViewChange('shop')}
         >
           <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
-            <span className="text-white font-bold text-xl italic">V</span>
+            <span className="text-white font-bold text-xl italic">S</span>
           </div>
-          <span className="text-xl font-bold tracking-tight">VisionFit AI</span>
+          <span className="text-xl font-bold tracking-tight">Styll</span>
         </div>
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
