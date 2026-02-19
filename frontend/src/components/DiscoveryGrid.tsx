@@ -9,11 +9,11 @@ interface DiscoveryGridProps {
   isLoading?: boolean;
 }
 
-const DiscoveryGrid: React.FC<DiscoveryGridProps> = ({ 
-  onProductClick, 
-  searchQuery = '', 
-  products = [], 
-  isLoading = false 
+const DiscoveryGrid: React.FC<DiscoveryGridProps> = ({
+  onProductClick,
+  searchQuery = '',
+  products = [],
+  isLoading = false
 }) => {
   const [recentlyViewed, setRecentlyViewed] = useState<Product[]>([]);
 
@@ -73,7 +73,7 @@ const DiscoveryGrid: React.FC<DiscoveryGridProps> = ({
         <div className="mb-16 animate-in fade-in slide-in-from-top-4 duration-700">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-xs font-black uppercase tracking-[0.3em] text-zinc-400">Recently Viewed</h3>
-            <button 
+            <button
               onClick={() => {
                 localStorage.removeItem('Styll_recently_viewed');
                 setRecentlyViewed([]);
@@ -85,16 +85,17 @@ const DiscoveryGrid: React.FC<DiscoveryGridProps> = ({
           </div>
           <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
             {recentlyViewed.map((product) => (
-              <div 
+              <div
                 key={`recent-${product.id}`}
                 onClick={() => onProductClick(product)}
                 className="flex-shrink-0 w-32 group cursor-pointer"
               >
                 <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200/50 mb-2">
-                  <img 
-                    src={product.imageUrl} 
-                    alt={product.title} 
+                  <img
+                    src={product.imageUrl}
+                    alt={product.title}
                     className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500"
+                    onError={(e) => { const t = e.currentTarget; t.onerror = null; t.style.display = 'none'; t.parentElement!.classList.add('flex', 'items-center', 'justify-center'); t.parentElement!.innerHTML = '<svg class="w-8 h-8 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>'; }}
                   />
                   <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
@@ -116,28 +117,29 @@ const DiscoveryGrid: React.FC<DiscoveryGridProps> = ({
           </p>
         </div>
         <div className="flex items-center gap-3">
-            <span className="text-[10px] font-black uppercase tracking-widest text-zinc-300 mr-2">Sort by</span>
-            <select className="bg-transparent border-none text-[10px] font-black uppercase tracking-widest text-black focus:ring-0 cursor-pointer">
-              <option>Newest First</option>
-              <option>Category</option>
-            </select>
+          <span className="text-[10px] font-black uppercase tracking-widest text-zinc-300 mr-2">Sort by</span>
+          <select className="bg-transparent border-none text-[10px] font-black uppercase tracking-widest text-black focus:ring-0 cursor-pointer">
+            <option>Newest First</option>
+            <option>Category</option>
+          </select>
         </div>
       </div>
 
       {filteredProducts.length > 0 ? (
         <div className="masonry animate-in fade-in duration-1000 slide-in-from-bottom-8">
           {filteredProducts.map((product) => (
-            <div 
-              key={product.id} 
+            <div
+              key={product.id}
               className="masonry-item group cursor-pointer"
               onClick={() => handleProductItemClick(product)}
             >
               <div className="relative overflow-hidden rounded-[2rem] bg-zinc-100 border border-zinc-200/50 min-h-[250px] shadow-sm transition-all group-hover:shadow-2xl group-hover:shadow-black/5">
-                <img 
-                  src={product.imageUrl} 
-                  alt={product.title} 
+                <img
+                  src={product.imageUrl}
+                  alt={product.title}
                   className="w-full h-auto block transition-transform duration-1000 group-hover:scale-110"
                   loading="lazy"
+                  onError={(e) => { const t = e.currentTarget; t.onerror = null; t.style.display = 'none'; const p = t.parentElement!; p.style.minHeight = '300px'; p.classList.add('flex', 'items-center', 'justify-center'); p.innerHTML = '<div class="text-center"><svg class="w-12 h-12 text-zinc-300 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><p class="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">Image unavailable</p></div>'; }}
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-500 flex items-center justify-center opacity-0 group-hover:opacity-100">
                   <div className="bg-white/90 backdrop-blur-xl px-6 py-3 rounded-2xl shadow-2xl scale-90 group-hover:scale-100 transition-all duration-500">
@@ -170,7 +172,7 @@ const DiscoveryGrid: React.FC<DiscoveryGridProps> = ({
               We couldn't find matches for "{searchQuery}". Try a direct image URL or search for materials like "Silk" or "Linen".
             </p>
           </div>
-          <button 
+          <button
             onClick={() => window.location.reload()}
             className="px-10 py-3 bg-black text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-zinc-800 transition-all hover:scale-105"
           >
