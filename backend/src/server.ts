@@ -5,6 +5,7 @@ import productsRouter from './routes/products.js';
 import tryonRouter from './routes/tryon.js';
 import authRouter from './routes/auth.js';
 import profileRouter from './routes/profile.js';
+import analyticsRouter from './routes/analytics.js';
 
 const app = express();
 const PORT = parseInt(process.env.PORT || '5000', 10);
@@ -25,6 +26,7 @@ app.use('/api/products', productsRouter);
 app.use('/api/tryon', tryonRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/profile', profileRouter);
+app.use('/api/analytics', analyticsRouter);
 
 // Health check
 app.get('/api/health', (_req, res) => {

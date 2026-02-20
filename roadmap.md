@@ -18,10 +18,10 @@ This roadmap outlines the evolution of VisionFit AI from a high-fidelity virtual
 ## 📍 Phase 2: Production Scale (Q3 2024)
 *Focus: Stability, Merchant Tools, and Performance.*
 
-- [ ] **Microservices Transition**: Move AI processing to a dedicated FastAPI worker for background task handling.
-- [ ] **Merchant Portal**: Dashboard for store owners to view "Try-on to Sale" conversion metrics.
-- [ ] **User Auth**: Allow users to save their "Digital Body Model" securely.
-- [ ] **CDN Optimization**: Edge-caching for product images and generated previews.
+- [x] **Microservices Transition**: Move AI processing to a dedicated FastAPI worker for background task handling.
+- [x] **Merchant Portal**: Dashboard for store owners to view "Try-on to Sale" conversion metrics.
+- [x] **User Auth**: Allow users to save their "Digital Body Model" securely.
+- [x] **CDN Optimization**: Edge-caching for product images and generated previews.
 
 ---
 

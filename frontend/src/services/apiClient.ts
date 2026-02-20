@@ -8,6 +8,10 @@ const getToken = (): string | null => {
     return localStorage.getItem('Styll_token');
 };
 
+const getPreferredGeminiModel = (): string | null => {
+    return localStorage.getItem('gemini_image_model');
+};
+
 const setToken = (token: string | null) => {
     if (token) {
         localStorage.setItem('Styll_token', token);
@@ -39,6 +43,7 @@ export const api = {
     // ── Try-On ────────────────────────────────────
     async performTryOn(data: TryOnRequest): Promise<TryOnResult> {
         const customKey = localStorage.getItem('gemini_api_key');
+        const customModel = getPreferredGeminiModel();
         const headers: Record<string, string> = {
             'Content-Type': 'application/json',
             ...authHeaders()
@@ -46,6 +51,10 @@ export const api = {
 
         if (customKey) {
             headers['x-gemini-api-key'] = customKey;
+        }
+
+        if (customModel) {
+            headers['x-gemini-model'] = customModel;
         }
 
         const res = await fetch(`${API_BASE}/tryon`, {
@@ -113,11 +122,26 @@ export const api = {
         return res.json();
     },
 
-    async updateProfile(data: { height: string; weight: string; body_model_url?: string }): Promise<void> {
-        await fetch(`${API_BASE}/profile`, {
+    async updateProfile(data: { height: string; weight: string; body_model_url?: string }): Promise<{ profile: any }> {
+        const res = await fetch(`${API_BASE}/profile`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json', ...authHeaders() },
             body: JSON.stringify(data),
         });
+        return res.json();
+    },
+
+    // ── Analytics ─────────────────────────────────
+    async trackClick(productId: string, merchantId: string): Promise<void> {
+        await fetch(`${API_BASE}/analytics/click`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ product_id: productId, merchant_id: merchantId }),
+        });
+    },
+
+    async getMerchantMetrics(merchantId: string): Promise<{ metrics: any }> {
+        const res = await fetch(`${API_BASE}/analytics/merchant/${merchantId}`);
+        return res.json();
     },
 };

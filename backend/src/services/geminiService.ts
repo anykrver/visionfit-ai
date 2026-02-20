@@ -2,20 +2,96 @@ import { GoogleGenAI } from "@google/genai";
 import { TryOnRequest, TryOnResult } from "../types.js";
 
 export class GeminiService {
+    private readonly defaultImageModel = process.env.GEMINI_IMAGE_MODEL || "gemini-2.5-flash-image";
+    private readonly fallbackImageModels = (process.env.GEMINI_IMAGE_FALLBACK_MODELS || "gemini-3-pro-image-preview")
+        .split(",")
+        .map((model) => model.trim())
+        .filter(Boolean);
+
+    private buildModelPriority(preferredModel?: string): string[] {
+        const ordered = [preferredModel, this.defaultImageModel, ...this.fallbackImageModels]
+            .filter((model): model is string => Boolean(model && model.trim()))
+            .map((model) => model.trim());
+
+        return [...new Set(ordered)];
+    }
+
+    private isQuotaError(error: any): boolean {
+        const message = String(error?.message || "").toLowerCase();
+        const status = Number(error?.status || error?.code || 0);
+
+        return (
+            status === 429 ||
+            message.includes("quota") ||
+            message.includes("rate limit") ||
+            message.includes("resource has been exhausted") ||
+            message.includes("too many requests") ||
+            message.includes("daily limit")
+        );
+    }
+
+    private isRetryableModelError(error: any): boolean {
+        if (this.isQuotaError(error)) {
+            return true;
+        }
+
+        const message = String(error?.message || "").toLowerCase();
+        const status = Number(error?.status || error?.code || 0);
+
+        if (status === 404 || status === 503) {
+            return true;
+        }
+
+        if (status === 403 && (message.includes("billing") || message.includes("permission") || message.includes("not enabled"))) {
+            return true;
+        }
+
+        if (status === 400 && (message.includes("model") || message.includes("unsupported") || message.includes("not found"))) {
+            return true;
+        }
+
+        return (
+            message.includes("unsupported model") ||
+            message.includes("model not found") ||
+            message.includes("not enabled for") ||
+            message.includes("permission denied") ||
+            message.includes("failed to produce an image") ||
+            message.includes("no image")
+        );
+    }
+
+    private extractImageFromResponse(response: any): string {
+        const candidate = response?.candidates?.[0];
+        if (!candidate?.content?.parts) {
+            return "";
+        }
+
+        for (const part of candidate.content.parts) {
+            if (part?.inlineData?.data) {
+                return `data:image/png;base64,${part.inlineData.data}`;
+            }
+        }
+
+        return "";
+    }
+
     /**
      * Performs an identity-preserving virtual try-on using high-fidelity prompt tuning.
      * Optimized for Gemini 2.5 Flash Image (Nano Banana).
      */
     async performTryOn(request: TryOnRequest): Promise<TryOnResult> {
+        const attemptErrors: any[] = [];
+
         try {
             const apiKey = request.apiKey || process.env.GEMINI_API_KEY;
-            console.log(`[DEBUG] Using API Key: ${apiKey ? apiKey.substring(0, 8) + '...' : 'UNDEFINED'}, Source: ${request.apiKey ? 'Custom' : 'Env'}`);
+            console.log(`[GeminiService] API key source: ${request.apiKey ? "custom" : "env"}`);
 
             if (!apiKey) {
                 throw new Error("API Key not found. Please set GEMINI_API_KEY in backend/.env");
             }
 
             const ai = new GoogleGenAI({ apiKey });
+            const modelsToTry = this.buildModelPriority(request.model);
 
             const systemInstruction = `You are an elite virtual try-on AI (VisionFit AI). Your specialty is rendering a person from a portrait (Image 1) wearing a specific garment from a reference (Image 2) with absolute realism.
 
@@ -55,42 +131,50 @@ CRITICAL CONSTRAINTS:
                 parts.push({ text: `Garment Image (Image 2): ${request.garment_image}` });
             }
 
-            const response = await ai.models.generateContent({
-                model: 'gemini-2.5-flash-image',
-                contents: { parts },
-                config: {
-                    systemInstruction: systemInstruction,
-                    imageConfig: {
-                        aspectRatio: "3:4"
-                    }
-                }
-            });
+            for (let i = 0; i < modelsToTry.length; i++) {
+                const model = modelsToTry[i];
+                const hasMoreModels = i < modelsToTry.length - 1;
 
-            let generatedImageUrl = '';
-            const candidate = response.candidates?.[0];
+                try {
+                    const response = await ai.models.generateContent({
+                        model,
+                        contents: { parts },
+                        config: {
+                            systemInstruction,
+                            imageConfig: {
+                                aspectRatio: "3:4"
+                            }
+                        }
+                    });
 
-            if (candidate?.content?.parts) {
-                for (const part of candidate.content.parts) {
-                    if (part.inlineData) {
-                        generatedImageUrl = `data:image/png;base64,${part.inlineData.data}`;
-                        break;
+                    const generatedImageUrl = this.extractImageFromResponse(response);
+
+                    if (generatedImageUrl) {
+                        return {
+                            imageUrl: generatedImageUrl,
+                            status: 'success'
+                        };
                     }
+
+                    throw new Error("The AI render engine failed to produce an image.");
+                } catch (modelError: any) {
+                    attemptErrors.push(modelError);
+
+                    if (hasMoreModels && this.isRetryableModelError(modelError)) {
+                        console.warn(`[GeminiService] Model "${model}" failed, attempting fallback model.`);
+                        continue;
+                    }
+
+                    throw modelError;
                 }
             }
 
-            if (!generatedImageUrl) {
-                throw new Error(response.text || "The AI render engine failed to produce an image. Please try a clearer portrait.");
-            }
-
-            return {
-                imageUrl: generatedImageUrl,
-                status: 'success'
-            };
+            throw new Error("No compatible image model succeeded.");
         } catch (error: any) {
             console.error("Gemini Service Error:", error);
 
             // Check for quota exhaustion (429)
-            if (error.message?.includes('429') || error.message?.toLowerCase().includes('quota') || error.status === 429) {
+            if (this.isQuotaError(error) || attemptErrors.some((attemptError) => this.isQuotaError(attemptError))) {
                 return {
                     imageUrl: '',
                     status: 'error',

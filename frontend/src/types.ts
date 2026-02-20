@@ -1,6 +1,7 @@
 
 export interface Product {
     id: string;
+    merchant_id?: string;
     title: string;
     price: string;
     imageUrl: string;

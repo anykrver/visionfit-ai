@@ -19,9 +19,14 @@ router.post('/', async (req: Request, res: Response) => {
         }
 
         // Extract custom API key if present
-        const customApiKey = req.headers['x-gemini-api-key'] as string;
-        if (customApiKey) {
-            requestData.apiKey = customApiKey;
+        const customApiKey = req.headers['x-gemini-api-key'];
+        if (typeof customApiKey === 'string' && customApiKey.trim()) {
+            requestData.apiKey = customApiKey.trim();
+        }
+
+        const customModel = req.headers['x-gemini-model'];
+        if (typeof customModel === 'string' && customModel.trim()) {
+            requestData.model = customModel.trim();
         }
 
         const result = await agentService.orchestrateTryOn(requestData);

@@ -11,11 +11,13 @@ import About from './components/About';
 import BlogPage from './components/BlogPage';
 import BlogPostView from './components/BlogPostView';
 import AuthModal from './components/AuthModal';
+import ProfilePage from './components/ProfilePage';
+import MerchantDashboard from './components/MerchantDashboard';
 import { Product } from './types';
 import { MOCK_PRODUCTS } from './constants';
 import { api } from './services/apiClient';
 
-type View = 'shop' | 'how-it-works' | 'brands' | 'about' | 'blog' | 'blog-post';
+type View = 'shop' | 'how-it-works' | 'brands' | 'about' | 'blog' | 'blog-post' | 'profile' | 'merchant-dashboard';
 
 const App: React.FC = () => {
     const [currentView, setCurrentView] = useState<View>('shop');
@@ -88,6 +90,9 @@ const App: React.FC = () => {
     const handleLogout = async () => {
         await api.signOut();
         setUser(null);
+        if (currentView === 'profile') {
+            setCurrentView('shop');
+        }
     };
 
     const renderContent = () => {
@@ -102,6 +107,10 @@ const App: React.FC = () => {
                 return <BlogPage onPostClick={(slug) => { setBlogSlug(slug); setCurrentView('blog-post'); }} />;
             case 'blog-post':
                 return <BlogPostView slug={blogSlug} onBack={() => setCurrentView('blog')} onPostClick={(slug) => { setBlogSlug(slug); setCurrentView('blog-post'); }} />;
+            case 'profile':
+                return <ProfilePage onBack={() => setCurrentView('shop')} />;
+            case 'merchant-dashboard':
+                return <MerchantDashboard merchantId="default-merchant-id" onBack={() => setCurrentView('shop')} />;
             default:
                 return (
                     <>
@@ -219,6 +228,7 @@ const App: React.FC = () => {
                                 <button onClick={() => setCurrentView('brands')} className="block hover:text-black transition-colors">For Brands</button>
                                 <button onClick={() => setCurrentView('about')} className="block hover:text-black transition-colors">About Us</button>
                                 <button onClick={() => setCurrentView('blog')} className="block hover:text-black transition-colors">Blog</button>
+                                <button onClick={() => setCurrentView('merchant-dashboard')} className="block hover:text-black transition-colors">Merchant Portal</button>
                             </div>
                         </div>
                     </div>
@@ -236,6 +246,9 @@ const App: React.FC = () => {
                 <TryOnModal
                     product={selectedProduct}
                     onClose={() => setSelectedProduct(null)}
+                    onStoreClick={(productId, merchantId) => {
+                        api.trackClick(productId, merchantId);
+                    }}
                 />
             )}
 

@@ -98,21 +98,38 @@ export class AgentService {
                 request.user_image = processedImage;
             }
 
-            // Step 3: Parallel Execution
-            actions_taken.push("Triggering Parallel Agents: [VTO_Model, Style_LLM]");
+            // Step 3: Parallel Execution via FastAPI Worker
+            actions_taken.push("Triggering Worker Microservice: [FastAPI]");
 
-            const [tryOnResult, styleAdvice] = await Promise.all([
-                geminiService.performTryOn(request),
-                geminiService.generateStyleAdvice(processedImage, request.garment_image, request.category, request.apiKey)
+            const WORKER_URL = process.env.WORKER_URL || 'http://localhost:8000';
+
+            const [tryOnRes, styleAdviceRes] = await Promise.all([
+                fetch(`${WORKER_URL}/tryon`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(request)
+                }).then(r => r.json()) as Promise<any>,
+                fetch(`${WORKER_URL}/style-advice`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_image: processedImage,
+                        garment_image: request.garment_image,
+                        category: request.category,
+                        apiKey: request.apiKey
+                    })
+                }).then(r => r.json()) as Promise<any>
             ]);
 
             // Combine results
             return {
-                ...tryOnResult,
+                imageUrl: tryOnRes.imageUrl || '',
+                status: tryOnRes.status || 'error',
+                message: tryOnRes.detail || tryOnRes.message,
                 analysis: {
                     validation,
                     actions_taken,
-                    style_advice: styleAdvice
+                    style_advice: styleAdviceRes.advice || "Style advice unavailable"
                 }
             };
         } catch (error: any) {

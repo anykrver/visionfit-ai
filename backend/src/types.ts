@@ -17,6 +17,7 @@ export interface TryOnRequest {
         preserve_identity: boolean;
     };
     apiKey?: string;
+    model?: string;
 }
 
 export interface TryOnResult {
