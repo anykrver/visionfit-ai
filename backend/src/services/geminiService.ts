@@ -8,7 +8,9 @@ export class GeminiService {
      */
     async performTryOn(request: TryOnRequest): Promise<TryOnResult> {
         try {
-            const apiKey = process.env.GEMINI_API_KEY;
+            const apiKey = request.apiKey || process.env.GEMINI_API_KEY;
+            console.log(`[DEBUG] Using API Key: ${apiKey ? apiKey.substring(0, 8) + '...' : 'UNDEFINED'}, Source: ${request.apiKey ? 'Custom' : 'Env'}`);
+
             if (!apiKey) {
                 throw new Error("API Key not found. Please set GEMINI_API_KEY in backend/.env");
             }
@@ -101,6 +103,56 @@ CRITICAL CONSTRAINTS:
                 status: 'error',
                 message: error.message || "An unexpected error occurred during rendering."
             };
+        }
+    }
+
+
+    /**
+     * Generates fashion style advice based on the user's image and selected garment.
+     * Uses Gemini 2.5 Flash for rapid text generation.
+     */
+    async generateStyleAdvice(userImage: string, garmentImage: string, category: string, customApiKey?: string): Promise<string> {
+        try {
+            const apiKey = customApiKey || process.env.GEMINI_API_KEY;
+            if (!apiKey) return "Style advice unavailable (API Key missing).";
+
+            const ai = new GoogleGenAI({ apiKey });
+            // const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" }); // OLD SDK
+
+            const prompt = `You are a high-end fashion stylist.
+            Analyze the user in Image 1 and the garment in Image 2 (${category}).
+            Provide 3 short, punchy styling tips for wearing this item.
+            Focus on accessories, footwear, and occasion.
+            Tone: Professional, trendy, and encouraging.
+            Max length: 50 words.`;
+
+            // Helper for base64
+            const isBase64 = (str: string) => str.startsWith('data:');
+            const parts: any[] = [{ text: prompt }];
+
+            // Add Image 1
+            if (isBase64(userImage)) {
+                const [mime, data] = userImage.split(',');
+                parts.push({ inlineData: { data, mimeType: mime.match(/:(.*?);/)?.[1] || 'image/jpeg' } });
+            }
+
+            // Add Image 2
+            if (isBase64(garmentImage)) {
+                const [mime, data] = garmentImage.split(',');
+                parts.push({ inlineData: { data, mimeType: mime.match(/:(.*?);/)?.[1] || 'image/jpeg' } });
+            }
+
+            const result = await ai.models.generateContent({
+                model: 'gemini-2.0-flash',
+                contents: [{ role: "user", parts }]
+            });
+
+            const candidate = result.candidates?.[0];
+            const text = candidate?.content?.parts?.[0]?.text;
+            return text || "Looks great! Pair it with confidence.";
+        } catch (error) {
+            console.error("Style Agent Error:", error);
+            return "Unable to generate style advice at this moment.";
         }
     }
 }

@@ -38,9 +38,19 @@ export const api = {
 
     // ── Try-On ────────────────────────────────────
     async performTryOn(data: TryOnRequest): Promise<TryOnResult> {
+        const customKey = localStorage.getItem('gemini_api_key');
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+            ...authHeaders()
+        };
+
+        if (customKey) {
+            headers['x-gemini-api-key'] = customKey;
+        }
+
         const res = await fetch(`${API_BASE}/tryon`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', ...authHeaders() },
+            headers,
             body: JSON.stringify(data),
         });
         return res.json();

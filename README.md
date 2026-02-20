@@ -87,7 +87,23 @@ Frontend runs at `http://localhost:3000` with API proxy to backend.
 | PUT | `/api/profile` | Update user profile |
 | GET | `/api/health` | Health check |
 
+## Agentic Architecture
+
+The system uses a **multi-agent workflow** to ensure high-quality results rather than a simple API call.
+
+1.  **Decision Agent (Validation Node)**:
+    *   Analyzes incoming images for resolution and lighting quality.
+    *   Rejects inputs that are too dark or too blurry to produce a good result.
+
+2.  **Action Agent (Upscaling Node)**:
+    *   **Self-Healing**: If an image is low-resolution (< 720px width), the agent *automatically* triggers an upscaling process (simulated/mocked for MVP) before passing it to the core model.
+
+3.  **Orchestrator (Parallel Execution)**:
+    *   Simultaneously triggers the **Virtual Try-On Model** (Gemini 2.5) and a **Style Consultant Agent** (LLM).
+    *   Returns both the visual result and personalized fashion advice (e.g., "Pair this with white sneakers for a casual look") in a single response relative to the user's uploaded photo.
+
 ## Tech Stack
+
 
 - **Frontend**: React 19, Vite, TailwindCSS (CDN)
 - **Backend**: Express, TypeScript, tsx

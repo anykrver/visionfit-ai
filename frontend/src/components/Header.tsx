@@ -9,7 +9,11 @@ interface HeaderProps {
   onLogout: () => void;
 }
 
+import ApiKeyModal from './ApiKeyModal';
+
 const Header: React.FC<HeaderProps> = ({ currentView, onViewChange, user, onAuthClick, onLogout }) => {
+  const [isApiKeyModalOpen, setIsApiKeyModalOpen] = React.useState(false);
+
   const navItems = [
     { label: 'Shop', id: 'shop' },
     { label: 'How it works', id: 'how-it-works' },
@@ -53,6 +57,15 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange, user, onAuth
         </nav>
 
         <div className="flex items-center gap-2">
+          <button
+            onClick={() => setIsApiKeyModalOpen(true)}
+            className="hidden sm:flex text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-black transition-colors mr-2"
+          >
+            Link API Key
+          </button>
+
+          <ApiKeyModal isOpen={isApiKeyModalOpen} onClose={() => setIsApiKeyModalOpen(false)} />
+
           {user ? (
             <div className="flex items-center gap-4">
               <button

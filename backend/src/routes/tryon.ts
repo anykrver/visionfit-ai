@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { geminiService } from '../services/geminiService.js';
+import { agentService } from '../services/AgentService.js';
 import { TryOnRequest } from '../types.js';
 
 const router = Router();
@@ -18,7 +18,13 @@ router.post('/', async (req: Request, res: Response) => {
             return;
         }
 
-        const result = await geminiService.performTryOn(requestData);
+        // Extract custom API key if present
+        const customApiKey = req.headers['x-gemini-api-key'] as string;
+        if (customApiKey) {
+            requestData.apiKey = customApiKey;
+        }
+
+        const result = await agentService.orchestrateTryOn(requestData);
         res.json(result);
     } catch (error: any) {
         console.error("Try-on route error:", error);

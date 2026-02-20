@@ -9,6 +9,9 @@ import profileRouter from './routes/profile.js';
 const app = express();
 const PORT = parseInt(process.env.PORT || '5000', 10);
 
+console.log(`[DEBUG] SUPABASE_URL loaded: ${!!process.env.SUPABASE_URL}`);
+console.log(`[DEBUG] Current Directory: ${process.cwd()}`);
+
 // Middleware
 app.use(cors({
     origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],

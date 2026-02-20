@@ -16,6 +16,7 @@ export interface TryOnRequest {
         weight: number;
         preserve_identity: boolean;
     };
+    apiKey?: string;
 }
 
 export interface TryOnResult {
